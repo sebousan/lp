@@ -1,0 +1,21 @@
+{
+    "autoprefixer_options": {
+        "browsers": [
+            "last 3 versions",
+            "iOS >= 10",
+            "ie >= 11",
+            "and_chr >= 53"
+        ]
+    },
+    "dist": "./dist",
+    "dist_css": "./dist/css",
+    "dist_js": "./dist/js",
+    "html": "./index.html",
+    "js_ext": "js",
+    "js_folder": "./assets/javascripts",
+    "partial_ext": "html",
+    "partial_folder": "./partials",
+    "style": "styles.styl",
+    "style_ext": "styl",
+    "style_folder": "./assets/styles"
+}
