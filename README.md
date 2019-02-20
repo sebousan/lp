@@ -1,4 +1,4 @@
-# lp
+# LP
 
 Very simple Gulp configuration width:
 

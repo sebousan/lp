@@ -46,6 +46,16 @@ gulp.task("styles", function() {
         .pipe(bs.reload({ stream: true })) // reload browser
 });
 
+// JS
+gulp.task('scripts', function () {
+    return gulp
+        .src([config.js_folder + config.js])
+        .pipe(sourcemaps.init())
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(config.dist_js))
+        .pipe(bs.reload({ stream: true })); // reload browser
+});
+
 // HTML
 gulp.task('html', function () {
     return gulp
@@ -58,11 +68,20 @@ gulp.task('html', function () {
         .pipe(bs.reload({ stream: true })); // reload browser
 });
 
+// FONTS
+gulp.task('fonts', () => {
+    return gulp
+        .src(config.font_folder + '/**/*')
+        .pipe(gulp.dest(config.dist_font))
+        .pipe(bs.reload({ stream: true })); // reload browser
+})
+
 // WATCH
 gulp.task("watch", ["browser-sync"], function() {
     gulp.watch([config.partial_folder + '/**/*.' + config.partial_ext], ['html'])
     gulp.watch([config.style_folder + '/**/*.' + config.style_ext], ['styles'])
+    gulp.watch([config.js_folder + '/**/*.' + config.js_ext], ['scripts'])
 });
 
 // INIT
-gulp.task("default", ['styles', 'html']);
+gulp.task("default", ['styles', 'scripts', 'html', 'fonts']);
