@@ -9,6 +9,7 @@ var bs = require('browser-sync').create();
 
 // assets
 var autoprefixer = require('gulp-autoprefixer');
+var browserify = require('gulp-browserify');
 var plumber = require('gulp-plumber');
 var sourcemaps = require('gulp-sourcemaps');
 var stylus = require('gulp-stylus');
@@ -23,16 +24,16 @@ var fileinclude = require('gulp-file-include');
 ********* */
 
 // BROWSER SYNC
-gulp.task("browser-sync", function() {
+gulp.task("browser-sync", function () {
     bs.init({
         server: config.dist
     });
 });
 
 // CSS
-gulp.task("styles", function() {
+gulp.task("styles", function () {
     return gulp
-        .src([config.style_folder + config.style])
+        .src([config.style_folder + '/' + config.style])
         .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(
@@ -43,17 +44,20 @@ gulp.task("styles", function() {
         .pipe(autoprefixer(config.autoprefixer_options))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(config.dist_css))
-        .pipe(bs.reload({ stream: true })) // reload browser
+        .pipe(bs.reload({stream: true})); // reload browser
 });
 
 // JS
 gulp.task('scripts', function () {
     return gulp
-        .src([config.js_folder + config.js])
+        .src([config.js_folder + '/' + config.js])
         .pipe(sourcemaps.init())
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(config.dist_js))
-        .pipe(bs.reload({ stream: true })); // reload browser
+        .pipe(browserify({
+            insertGlobals: true
+        }))
+        .pipe(plumber())
+        .pipe(sourcemaps.write())
+        .pipe(bs.reload({stream: true})); // reload browser
 });
 
 // HTML
@@ -65,22 +69,22 @@ gulp.task('html', function () {
             basepath: '@file'
         }))
         .pipe(gulp.dest(config.dist))
-        .pipe(bs.reload({ stream: true })); // reload browser
+        .pipe(bs.reload({stream: true})); // reload browser
 });
 
 // FONTS
-gulp.task('fonts', () => {
+gulp.task('fonts', function () {
     return gulp
         .src(config.font_folder + '/**/*')
         .pipe(gulp.dest(config.dist_font))
-        .pipe(bs.reload({ stream: true })); // reload browser
-})
+        .pipe(bs.reload({stream: true})); // reload browser
+});
 
 // WATCH
-gulp.task("watch", ["browser-sync"], function() {
-    gulp.watch([config.partial_folder + '/**/*.' + config.partial_ext], ['html'])
-    gulp.watch([config.style_folder + '/**/*.' + config.style_ext], ['styles'])
-    gulp.watch([config.js_folder + '/**/*.' + config.js_ext], ['scripts'])
+gulp.task("watch", ["browser-sync"], function () {
+    gulp.watch([config.partial_folder + '/**/*.' + config.partial_ext], ['html']);
+    gulp.watch([config.style_folder + '/**/*.' + config.style_ext], ['styles']);
+    gulp.watch([config.js_folder + '/**/*.' + config.js_ext], ['scripts']);
 });
 
 // INIT
