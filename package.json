@@ -19,7 +19,8 @@
     "gulp-image": "^4.4.1",
     "gulp-plumber": "^1.2.1",
     "gulp-sourcemaps": "^2.6.5",
-    "gulp-stylus": "^2.7.0"
+    "gulp-stylus": "^2.7.0",
+    "gulp-uglify": "^3.0.2"
   },
   "dependencies": {
     "gsap": "^1.20.6",
