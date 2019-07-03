@@ -14,7 +14,9 @@
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^6.0.0",
     "gulp-browserify": "^0.5.1",
+    "gulp-clean-css": "^4.2.0",
     "gulp-file-include": "^2.0.1",
+    "gulp-image": "^4.4.1",
     "gulp-plumber": "^1.2.1",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-stylus": "^2.7.0"
